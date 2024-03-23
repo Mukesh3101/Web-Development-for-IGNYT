@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ignyt - The Beer Lounge</title>
+    <style>
+        /* CSS styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #1f1f1f; /* Dark background color */
+            color: #fff; /* White text color */
+        }
+        #homepage {
+            color: #ffd700; /* Gold text color */
+            text-align: center;
+            padding: 100px 0;
+        }
+        .menu-section {
+            padding: 50px 20px;
+            background-color: #333; /* Dark gray background for menu section */
+        }
+        .food-item {
+            background-color: #444; /* Darker gray background for food items */
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Darker box shadow */
+        }
+        .food-item h3 {
+            margin-top: 0;
+            color: #ffd700; /* Gold text color */
+        }
+        .food-item button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .food-item button:hover {
+            background-color: #0056b3;
+        }
+        .cart {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .cart button {
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        /* Logo styling */
+        #logo {
+            display: block;
+            margin: 0 auto;
+            width: 100px; /* Adjust width as needed */
+        }
+        /* Footer styling */
+        footer {
+            background-color: #333; /* Dark gray background for footer */
+            padding: 20px 0;
+            text-align: center;
+        }
+        footer p {
+            margin: 0;
+            color: #ffd700; /* Gold text color */
+        }
+    </style>
+</head>
+<body>
+    <!-- Homepage Section -->
+    <section id="homepage">
+        <img src="https://ugc.production.linktr.ee/912dce7e-c4f0-415c-bbae-2162096b9d80_Logo-03.png" alt="Ignyt Logo" id="logo"> <!-- Logo image -->
+        <h1>Welcome to Ignyt - The Beer Lounge</h1> <!-- Changed heading text -->
+        <p>Experience the eclectic ambiance and enjoy our flagship ₹499 unlimited beer offer!</p>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about-us">
+        <h2>About Us</h2>
+        <p>Discover the rich narrative behind Ignyt, our passion for craft beer, and our commitment to delivering an unparalleled social experience.</p>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <h2>Our Menu</h2>
+        <div class="beer-menu">
+            <h3>Beer Selection</h3>
+            <!-- Add beer menu details here -->
+        </div>
+        <div class="food-menu">
+            <h3>Food Menu</h3>
+            <!-- Add food menu details here -->
+            <div class="food-item">
+                <h3>Burgers</h3>
+                <ul>
+                    <li>Cheeseburger - ₹100 <button onclick="addToCart('Cheeseburger', 100)">Add to Cart</button></li>
+                    <li>Veggie Burger - ₹80 <button onclick="addToCart('Veggie Burger', 80)">Add to Cart</button></li>
+                    <!-- Add more food items here -->
+                </ul>
+            </div>
+            <div class="food-item">
+                <h3>Pizzas</h3>
+                <ul>
+                    <li>Margherita Pizza - ₹120 <button onclick="addToCart('Margherita Pizza', 120)">Add to Cart</button></li>
+                    <li>Pepperoni Pizza - ₹150 <button onclick="addToCart('Pepperoni Pizza', 150)">Add to Cart</button></li>
+                    <!-- Add more food items here -->
+                </ul>
+            </div>
+            <div class="food-item">
+                <h3>Appetizers</h3>
+                <ul>
+                    <li>French Fries - ₹60 <button onclick="addToCart('French Fries', 60)">Add to Cart</button></li>
+                    <li>Mozzarella Sticks - ₹80 <button onclick="addToCart('Mozzarella Sticks', 80)">Add to Cart</button></li>
+                    <!-- Add more food items here -->
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section id="cart" class="cart">
+        <h2>Cart</h2>
+        <div id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <button onclick="clearCart()">Clear Cart</button>
+    </section>
+
+    <!-- Events and Promotions Section -->
+    <section id="events-promotions">
+        <h2>Events and Promotions</h2>
+        <div class="events-calendar">
+            <h3>Upcoming Events</h3>
+            <!-- Add events calendar and booking system details here -->
+            <p>Live music nights, themed events, and exclusive promotions!</p>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Ignyt - The Beer Lounge. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript for cart functionality
+        let cart = [];
+
+        function addToCart(itemName, itemPrice) {
+            cart.push({ name: itemName, price: itemPrice });
+            updateCart();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItemsDiv = document.getElementById('cart-items');
+            cartItemsDiv.innerHTML = ''; // Clear previous items
+
+            cart.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.textContent = `${item.name} - ₹${item.price}`;
+                
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = () => removeFromCart(index);
+                
+                itemElement.appendChild(removeButton);
+                cartItemsDiv.appendChild(itemElement);
+            });
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCart();
+        }
+    </script>
+</body>
+</html>
